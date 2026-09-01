@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MX Pro & Supercross | A Elite do Motocross Profissional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --surface-color: #1f2833;
+            --accent-color: #ff4500;
+            --text-color: #ffffff;
+            --text-secondary: #c5c6c7;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --border-radius: 16px;
+            --font-size-base: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Acessibilidade Bar */
+        .accessibility-bar {
+            background-color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .acc-btn {
+            background: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .acc-btn:hover {
+            background: var(--accent-color);
+        }
+
+        /* Blindagem Modo de Contraste */
+        body.high-contrast, body.high-contrast *:not(i):not(.icon) {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 1px solid #ff0 !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        body.high-contrast a, body.high-contrast button {
+            color: #ff0 !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+        }
+
+        /* Layout e Seções */
+        header {
+            padding: clamp(60px, 10vh, 120px) 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(11,12,16,0.8) 0%, rgba(11,12,16,1) 100%), url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: var(--border-radius);
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s, background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            background-color: #e03d00;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        /* Grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 30%, 350px), 1fr));
+            gap: clamp(20px, 3vw, 40px);
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        /* Carrossel Dinâmico */
+        .carousel-container {
+            position: relative;
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .carousel-controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Acordeão FAQ */
+        .accordion-item {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .accordion-header {
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            padding: 0 20px 20px 20px;
+            display: none;
+            color: var(--text-secondary);
+        }
+
+        .accordion-content.active {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #050507;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accessibility-bar">
+        <button class="acc-btn" onclick="alterarFonte(1)" aria-label="Aumentar Fonte">A+</button>
+        <button class="acc-btn" onclick="alterarFonte(-1)" aria-label="Diminuir Fonte">A-</button>
+        <button class="acc-btn" onclick="toggleContraste()" aria-label="Alternar Alto Contraste">Alto Contraste</button>
+    </div>
+
+    <header>
+        <h1>Domine a Arena do Supercross</h1>
+        <p class="subtitle">Aceleração máxima, saltos insanos e a cobertura completa sobre os maiores campeonatos mundiais e patrocínios milionários dos pilotos de elite.</p>
+        <a href="#campeonatos" class="cta-btn">Explorar Temporada</a>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">O Universo de Alta Performance</h2>
+        <div class="grid-3" style="margin-bottom: 80px;">
+            <div class="card">
+                <h3>Cobertura Global</h3>
+                <p>Acompanhe os bastidores e os resultados em tempo real do AMA Supercross e MXGP. Dados precisos sobre tempos de volta e estratégias de pista.</p>
+            </div>
+            <div class="card">
+                <h3>Grandes Patrocínios</h3>
+                <p>Análise detalhada do mercado de contratações, contratos de fábrica, marcas patrocinadoras e os investimentos que movem o esporte a motor.</p>
+            </div>
+            <div class="card">
+                <h3>Pura Adrenalina</h3>
+                <p>Análises táticas de ultrapassagens, sequências de whoops, saltos triplos e o preparo físico e mental extremo exigido dos atletas Pro.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Destaques da Elite MX</h2>
+        <div class="carousel-container" id="carousel-box">
+            </div>
+
+        <h2 class="section-title" style="margin-top: 80px;">Perguntas Frequentes & Estrutura</h2>
+        <div id="accordion-box">
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MX Pro & Supercross. Plataforma definitiva de alta velocidade e conversão.</p>
+    </footer>
+
+    <script>
+        // Gestão de Estado de Acessibilidade
+        let tamanhoFonteAtual = 16;
+
+        function alterarFonte(delta) {
+            let novaFonte = tamanhoFonteAtual + (delta * 2);
+            if (novaFonte >= 12 && novaFonte <= 24) {
+                tamanhoFonteAtual = novaFonte;
+                document.documentElement.style.setProperty('--font-size-base', novaFonte + 'px');
+            }
+        }
+
+        function toggleContraste() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        // Renderização Dinâmica - Carrossel
+        const dadosCarrossel = [
+            {
+                titulo: "Equipes de Fábrica 450cc",
+                descricao: "Entenda a engenharia por trás das motocicletas oficiais de fábrica e o suporte milionário fornecido pelos grandes construtores."
+            },
+            {
+                titulo: "Programa de Atletas de Red Bull & Monster",
+                descricao: "Como funcionam os patrocínios de maior prestígio do planeta e o que é necessário para integrar o time de elite."
+            },
+            {
+                titulo: "Preparação Física dos Campeões",
+                descricao: "A rotina exaustiva de treinamentos de resistência, controle de batimentos cardíacos e simulação de corrida de alta intensidade."
+            }
+        ];
+
+        let indiceCarrossel = 0;
+
+        function renderizarCarrossel() {
+            const container = document.getElementById('carousel-box');
+            const item = dadosCarrossel[indiceCarrossel];
+            
+            container.innerHTML = `
+                <h3>${item.titulo}</h3>
+                <p style="color: var(--text-secondary); max-width: 600px; margin-top: 15px;">${item.descricao}</p>
+                <div class="carousel-controls">
+                    <button class="acc-btn" onclick="mudarSlide(-1)">&larr; Anterior</button>
+                    <button class="acc-btn" onclick="mudarSlide(1)">Próximo &rarr;</button>
+                </div>
+            `;
+        }
+
+        function mudarSlide(direcao) {
+            indiceCarrossel += direcao;
+            if (indiceCarrossel < 0) indiceCarrossel = dadosCarrossel.length - 1;
+            if (indiceCarrossel >= dadosCarrossel.length) indiceCarrossel = 0;
+            renderizarCarrossel();
+        }
+
+        // Renderização Dinâmica - Acordeão
+        const dadosAcordeao = [
+            {
+                pergunta: "Como são estruturados os patrocínios no Supercross Profissional?",
+                resposta: "Os pilotos de fábrica possuem contratos diretos com as montadoras e patrocínios primários de marcas de energéticos, equipamentos e peças, alcançando cifras milionárias por temporada."
+            },
+            {
+                pergunta: "Qual a diferença técnica entre Motocross (MX) e Supercross (SX)?",
+                resposta: "O Motocross é disputado em circuitos abertos e naturais, com grandes variações de relevo. O Supercross acontece em estádios, com pistas artificiais altamente táticas, obstáculo ajustados e ritmo acelerado."
+            },
+            {
+                pergunta: "Como ter acesso à cobertura completa das corridas?",
+                resposta: "Cadastre-se na nossa plataforma para receber análises exclusivas, acesso a telemetrias de prova e relatórios completos dos treinos classificatórios."
+            }
+        ];
+
+        function renderizarAcordeao() {
+            const container = document.getElementById('accordion-box');
+            container.innerHTML = dadosAcordeao.map((item, index) => `
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAcordeao(${index})">
+                        <span>${item.pergunta}</span>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-content" id="acc-content-${index}">
+                        <p>${item.resposta}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAcordeao(index) {
+            const content = document.getElementById(`acc-content-${index}`);
+            const estaAtivo = content.classList.contains('active');
+            
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
+            
+            if (!estaAtivo) {
+                content.classList.add('active');
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarCarrossel();
+            renderizarAcordeao();
+        });
+    </script>
+</body>
+</html>
