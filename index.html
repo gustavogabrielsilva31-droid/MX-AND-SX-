@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MX Pro & Supercross | A Elite do Motocross Profissional</title>
+    <title>MX & SX Pro Hub | A Elite do Motocross e Supercross Mundial</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     
     <style>
+        /* ==========================================================================
+           1. VARIÁVEIS DE DESIGN SYSTEM & ROOT
+           ========================================================================== */
         :root {
             --bg-color: #0b0c10;
             --surface-color: #1f2833;
+            --surface-hover: #2a3645;
             --accent-color: #ff4500;
+            --accent-hover: #e03d00;
             --text-color: #ffffff;
             --text-secondary: #c5c6c7;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             --border-radius: 16px;
             --font-size-base: 16px;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        /* RESET GLOBAL E ACESSIBILIDADE DE BASE */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -35,34 +47,9 @@
             overflow-x: hidden;
         }
 
-        /* Acessibilidade Bar */
-        .accessibility-bar {
-            background-color: #000;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .acc-btn {
-            background: var(--surface-color);
-            color: var(--text-color);
-            border: 1px solid var(--accent-color);
-            padding: 5px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .acc-btn:hover {
-            background: var(--accent-color);
-        }
-
-        /* Blindagem Modo de Contraste */
+        /* ==========================================================================
+           2. BLINDAGEM DO MODO DE ALTO CONTRASTE (DIRETRIZ OBRIGATÓRIA)
+           ========================================================================== */
         body.high-contrast, body.high-contrast *:not(i):not(.icon) {
             background-color: #000 !important;
             color: #fff !important;
@@ -77,198 +64,745 @@
             font-weight: bold !important;
         }
 
-        /* Layout e Seções */
-        header {
-            padding: clamp(60px, 10vh, 120px) 20px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(11,12,16,0.8) 0%, rgba(11,12,16,1) 100%), url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        /* ==========================================================================
+           3. BARRA DE ACESSIBILIDADE E FIXADOS
+           ========================================================================== */
+        .accessibility-bar {
+            background-color: #000000;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
+        .acc-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 8px;
+        }
+
+        .acc-btn {
+            background: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .acc-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           4. LAYOUTS FLUIDOS E SEÇÕES
+           ========================================================================== */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: clamp(40px, 6vw, 80px) 24px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .section-title span {
+            color: var(--accent-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto clamp(30px, 5vw, 60px);
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+        }
+
+        /* HERO SECTION */
+        header.hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(60px, 12vh, 120px) 24px;
+            background: linear-gradient(180deg, rgba(11, 12, 16, 0.4) 0%, rgba(11, 12, 16, 0.9) 80%, rgba(11, 12, 16, 1) 100%), 
+                        url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 69, 0, 0.15);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: 900;
             text-transform: uppercase;
-            color: var(--accent-color);
-            margin-bottom: 20px;
             letter-spacing: 2px;
+            margin-bottom: 24px;
         }
 
-        p.subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .hero p.subtitle {
+            font-size: clamp(1.05rem, 2vw, 1.35rem);
             color: var(--text-secondary);
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 40px;
         }
 
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* BOTOES E INTERAÇÕES */
         .cta-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background-color: var(--accent-color);
-            color: #fff;
-            padding: 16px 40px;
+            color: #ffffff;
+            padding: 18px 42px;
             border-radius: var(--border-radius);
             font-weight: 900;
             text-decoration: none;
             text-transform: uppercase;
+            letter-spacing: 1px;
             box-shadow: var(--card-shadow);
-            transition: transform 0.3s, background-color 0.3s;
-            border: none;
+            transition: var(--transition-smooth);
+            border: 2px solid var(--accent-color);
             cursor: pointer;
+            font-size: 1rem;
         }
 
         .cta-btn:hover {
-            transform: translateY(-3px);
-            background-color: #e03d00;
+            transform: translateY(-4px);
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 15px 35px rgba(255, 69, 0, 0.4);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
+        .cta-btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
         }
 
-        .section-title {
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            text-align: center;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            font-weight: 900;
+        .cta-btn-secondary:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
         }
 
-        /* Grid */
+        /* GRID RESPONSIVO FLUIDO (MIND-BLOWING) */
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 30%, 350px), 1fr));
-            gap: clamp(20px, 3vw, 40px);
+            grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 30%, 360px), 1fr));
+            gap: clamp(24px, 3vw, 36px);
         }
 
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(300px, 45%, 550px), 1fr));
+            gap: clamp(24px, 3vw, 40px);
+        }
+
+        /* CARDS & CONTAINERS */
         .card {
             background-color: var(--surface-color);
             border-radius: var(--border-radius);
-            padding: 30px;
+            padding: clamp(24px, 3vw, 36px);
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 69, 0, 0.4);
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 220px;
+            border-radius: calc(var(--border-radius) - 6px);
+            overflow: hidden;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(11, 12, 16, 0.85);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
         }
 
         .card h3 {
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            font-size: 1.35rem;
+            font-weight: 900;
         }
 
-        /* Carrossel Dinâmico */
-        .carousel-container {
-            position: relative;
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        /* SEÇÃO DE CAMPEONATOS & PATROCÍNIOS */
+        .stats-strip {
             background-color: var(--surface-color);
-            border-radius: var(--border-radius);
-            padding: 40px;
-            box-shadow: var(--card-shadow);
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            border-y: 1px solid var(--border-color);
+            padding: 40px 24px;
+            margin: 40px 0;
+        }
+
+        .stats-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
             text-align: center;
         }
 
-        .carousel-controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
+        .stat-number {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: var(--accent-color);
+            line-height: 1;
+            margin-bottom: 8px;
         }
 
-        /* Acordeão FAQ */
-        .accordion-item {
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* COMPONENTE: CARROSSEL INTERATIVO DINÂMICO */
+        .carousel-wrapper {
             background-color: var(--surface-color);
             border-radius: var(--border-radius);
-            margin-bottom: 15px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
             overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-content-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 420px;
+        }
+
+        @media (max-width: 850px) {
+            .carousel-content-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .carousel-img-container {
+            position: relative;
+            min-height: 250px;
+        }
+
+        .carousel-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-text-container {
+            padding: clamp(30px, 4vw, 50px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .carousel-badge {
+            color: var(--accent-color);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .carousel-title {
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .carousel-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .carousel-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .carousel-meta-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            font-weight: 900;
+        }
+
+        .carousel-meta-item p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .carousel-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* COMPONENTE: FATOS CURIOSOS & REFERÊNCIAS */
+        .fact-card {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border-left: 5px solid var(--accent-color);
             box-shadow: var(--card-shadow);
         }
 
+        .fact-card h4 {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .fact-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* COMPONENTE: ACORDEÃO (FAQ INTERATIVO) */
+        .accordion-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(255, 69, 0, 0.3);
+        }
+
         .accordion-header {
-            padding: 20px;
+            padding: 24px;
             width: 100%;
             text-align: left;
             background: none;
             border: none;
             color: var(--text-color);
-            font-weight: 700;
+            font-weight: 900;
             font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-family: inherit;
+            gap: 16px;
+        }
+
+        .accordion-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+            background-color: var(--accent-color);
+            color: #fff;
         }
 
         .accordion-content {
-            padding: 0 20px 20px 20px;
-            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            padding: 0 24px;
             color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        .accordion-content.active {
-            display: block;
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding: 0 24px 24px 24px;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease;
         }
 
-        footer {
+        /* BANNER FINAL DE CONVERSÃO */
+        .cta-banner {
+            background: linear-gradient(135deg, #1f2833 0%, #0b0c10 100%);
+            border-radius: var(--border-radius);
+            padding: clamp(40px, 6vw, 80px) 24px;
             text-align: center;
-            padding: 40px 20px;
-            background-color: #050507;
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(255, 69, 0, 0.15);
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .cta-banner p {
             color: var(--text-secondary);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            max-width: 650px;
+            margin: 0 auto 32px;
+            font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #050507;
+            padding: 60px 24px 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p, .footer-col li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="accessibility-bar">
-        <button class="acc-btn" onclick="alterarFonte(1)" aria-label="Aumentar Fonte">A+</button>
-        <button class="acc-btn" onclick="alterarFonte(-1)" aria-label="Diminuir Fonte">A-</button>
-        <button class="acc-btn" onclick="toggleContraste()" aria-label="Alternar Alto Contraste">Alto Contraste</button>
+    <!-- BARRA FIXA DE ACESSIBILIDADE -->
+    <div class="accessibility-bar" aria-label="Ferramentas de Acessibilidade">
+        <span class="acc-label">Acessibilidade:</span>
+        <button class="acc-btn" id="btn-increase-font" onclick="alterarFonte(1)" aria-label="Aumentar Tamanho da Fonte">A+</button>
+        <button class="acc-btn" id="btn-decrease-font" onclick="alterarFonte(-1)" aria-label="Diminuir Tamanho da Fonte">A-</button>
+        <button class="acc-btn" id="btn-toggle-contrast" onclick="toggleContraste()" aria-label="Alternar Modo de Alto Contraste">Alto Contraste</button>
     </div>
 
-    <header>
-        <h1>Domine a Arena do Supercross</h1>
-        <p class="subtitle">Aceleração máxima, saltos insanos e a cobertura completa sobre os maiores campeonatos mundiais e patrocínios milionários dos pilotos de elite.</p>
-        <a href="#campeonatos" class="cta-btn">Explorar Temporada</a>
-    </header>
-
-    <main class="container">
-        <h2 class="section-title">O Universo de Alta Performance</h2>
-        <div class="grid-3" style="margin-bottom: 80px;">
-            <div class="card">
-                <h3>Cobertura Global</h3>
-                <p>Acompanhe os bastidores e os resultados em tempo real do AMA Supercross e MXGP. Dados precisos sobre tempos de volta e estratégias de pista.</p>
-            </div>
-            <div class="card">
-                <h3>Grandes Patrocínios</h3>
-                <p>Análise detalhada do mercado de contratações, contratos de fábrica, marcas patrocinadoras e os investimentos que movem o esporte a motor.</p>
-            </div>
-            <div class="card">
-                <h3>Pura Adrenalina</h3>
-                <p>Análises táticas de ultrapassagens, sequências de whoops, saltos triplos e o preparo físico e mental extremo exigido dos atletas Pro.</p>
+    <!-- HERO SECTION DE ALTO IMPACTO -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Temporada Oficial 2026</span>
+            <h1>Aceleração Máxima. <span>Pura Adrenalina.</span></h1>
+            <p class="subtitle">Acompanhe os maiores campeonatos do planeta, as telemetrias de pista, análises de ultrapassagens nos whoops e o mercado de patrocínios milionários da elite do Motocross e Supercross Pro.</p>
+            <div class="hero-actions">
+                <a href="#campeonatos" class="cta-btn">Explorar Campeonatos</a>
+                <a href="#patrocinios" class="cta-btn cta-btn-secondary">Mercado de Patrocínios</a>
             </div>
         </div>
+    </header>
 
-        <h2 class="section-title">Destaques da Elite MX</h2>
-        <div class="carousel-container" id="carousel-box">
+    <!-- ESTATTÍSTICAS DE IMPACTO -->
+    <section class="stats-strip">
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">70+</div>
+                <div class="stat-label">Cavalo de Potência (450cc)</div>
+            </div>
+            <div>
+                <div class="stat-number">100kg</div>
+                <div class="stat-label">Peso Médio da Moto</div>
+            </div>
+            <div>
+                <div class="stat-number">17</div>
+                <div class="stat-label">Etapas AMA Supercross</div>
+            </div>
+            <div>
+                <div class="stat-number">$2M+</div>
+                <div class="stat-label">Contratos de Elite</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 1: PRINCIPAIS CAMPEONATOS MUNDIAIS -->
+    <main class="container" id="campeonatos">
+        <h2 class="section-title">Os Maiores <span>Campeonatos</span> do Mundo</h2>
+        <p class="section-subtitle">As arenas mais desafiadoras, onde o limite da física é testado a cada curva, salto triplo e seção de costelas.</p>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <span class="card-tag">EUA • Estádios</span>
+                    <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80" alt="AMA Supercross em Estádio">
+                </div>
+                <h3>Monster Energy AMA Supercross</h3>
+                <p>O campeonato em estádios mais disputado e prestigiado do mundo. Pistas técnicas com ritmos travados, triplos gigantescos e seções de whoops exigem precisão cirúrgica dos 22 pilotos no main event.</p>
             </div>
 
-        <h2 class="section-title" style="margin-top: 80px;">Perguntas Frequentes & Estrutura</h2>
-        <div id="accordion-box">
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <span class="card-tag">Mundial • Ar Livre</span>
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80" alt="Campeonato Mundial MXGP">
+                </div>
+                <h3>FIM MXGP World Championship</h3>
+                <p>O campeonato mundial outdoor definitivo. Corridas em solo de terra batida, areia funda e lama ao redor do mundo. Duas baterias exaustivas de 30 minutos mais 2 voltas exigem resistência física suprema.</p>
             </div>
+
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <span class="card-tag">EUA • Outdoor</span>
+                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80" alt="Pro Motocross Championship">
+                </div>
+                <h3>AMA Pro Motocross Championship</h3>
+                <p>Velocidade pura e pistas históricas como RedBud, Unadilla e Hangtown. Os pilotos enfrentam canaletas profundas, calor escaldante e saltos de alta velocidade sob o sol do verão americano.</p>
+            </div>
+        </div>
     </main>
 
+    <!-- SEÇÃO 2: DESTAQUES DA ELITE (CARROSSEL DINÂMICO) -->
+    <section style="background-color: rgba(255,255,255,0.02); padding: clamp(40px, 6vw, 80px) 0;">
+        <div class="container">
+            <h2 class="section-title">Pilotos & <span>Equipes de Fábrica</span></h2>
+            <p class="section-subtitle">A engenharia de alta precisão aliada aos atletas mais bem preparados do planeta.</p>
+
+            <div class="carousel-wrapper">
+                <div class="carousel-content-box" id="carousel-box">
+                    <!-- RENDERIZADO DINAMICAMENTE VIA JAVASCRIPT -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: PATROCÍNIOS & ENGENHARIA FINANCEIRA -->
+    <section class="container" id="patrocinios">
+        <h2 class="section-title">O Mercado de <span>Grandes Patrocínios</span></h2>
+        <p class="section-subtitle">Como as marcas de energético, equipamentos e fábrica investem milhões na busca do pódio.</p>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>A Batalha das Marcas de Energético</h3>
+                <p>Red Bull, Monster Energy e Rockstar Energy travam uma verdadeira guerra comercial no paddock. Os patrocínios cobrem desde o naming rights dos times oficiais até capacetes personalizados com bônus por vitória e título que superam a casa dos 7 dígitos por ano.</p>
+            </div>
+
+            <div class="card">
+                <h3>Desenvolvimento & Telemetria Pro</h3>
+                <p>As motocicletas 450cc de fábrica são protótipos ajustados ao milímetro. Suspensões pressurizadas de amortecimento a ar/óleo custam mais de $30.000 por conjunto. A telemetria coleta dados de rotação, abertura de borboleta e desgaste de pneus em tempo real.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: FATOS CURIOSOS & REFERÊNCIAS -->
+    <section class="container">
+        <h2 class="section-title">Fatos Curiosos & <span>Engenharia</span></h2>
+        <p class="section-subtitle">Detalhes técnicos impressionantes que tornam o motocross o esporte mais exigente do mundo.</p>
+
+        <div class="grid-3">
+            <div class="fact-card">
+                <h4>Frequência Cardíaca Extrema</h4>
+                <p>Durante um Main Event de 20 minutos no Supercross, o batimento cardíaco dos pilotos permanece numa média de 180 a 195 BPM, equivalente ao esforço de uma maratona em ritmo máximo.</p>
+            </div>
+            <div class="fact-card">
+                <h4>G-Force nas Arrancadas</h4>
+                <p>No Holeshot (a arrancada inicial), as motos 450cc vão de 0 a 100 km/h em menos de 3 segundos em piso de terra batida com pneus de cravos especiais e sistema de trava de suspensão dianteira (Holeshot Device).</p>
+            </div>
+            <div class="fact-card">
+                <h4>Pressão do Vácuo e Óculos</h4>
+                <p>Os pilotos usam sistemas de "Tear-off" (lâminas plásticas descartáveis) ou "Roll-off" (filme contínuo) na visão. Em corridas de lama, usam até 30 lâminas sobrepostas para manter a visão limpa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: PERGUNTAS FREQUENTES (ACORDEÃO DINÂMICO) -->
+    <section class="container">
+        <h2 class="section-title">Perguntas <span>Frequentes</span></h2>
+        <p class="section-subtitle">Tire suas dúvidas sobre o ecossistema profissional do Motocross e Supercross.</p>
+
+        <div class="accordion-container" id="accordion-box">
+            <!-- RENDERIZADO DINAMICAMENTE VIA JAVASCRIPT -->
+        </div>
+    </section>
+
+    <!-- CTA BANNER FINAL -->
+    <section class="container">
+        <div class="cta-banner">
+            <h2>Pronto para Acompanhar a Temporada?</h2>
+            <p>Garanta seu acesso ao passaporte VIP de informações, telemetrias exclusivas e transmissões ao vivo da temporada de Supercross e Motocross.</p>
+            <a href="#campeonatos" class="cta-btn">Garantir Acesso Completo</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 MX Pro & Supercross. Plataforma definitiva de alta velocidade e conversão.</p>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MX & SX Pro Hub</h4>
+                <p>O portal definitivo de cobertura, análises técnicas, patrocínios e bastidores da elite do motociclismo off-road mundial.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Campeonatos</h4>
+                <ul>
+                    <li>AMA Supercross Championship</li>
+                    <li>AMA Pro Motocross</li>
+                    <li>FIM MXGP World Championship</li>
+                    <li>SuperMotocross World Championship (SMX)</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Parceiros & Marcas</h4>
+                <ul>
+                    <li>Red Bull & Monster Energy Racing</li>
+                    <li>Honda HRC / Monster Energy Yamaha</li>
+                    <li>Red Bull KTM / Rockstar Husqvarna</li>
+                    <li>Kawasaki Monster Energy Pro Circuit</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MX & SX Pro Hub. Todos os direitos reservados. Projeto otimizado para alta performance e conversão.</p>
+        </div>
     </footer>
 
+    <!-- JAVASCRIPT INTEGRADO (SISTEMA DE LÓGICA E DADOS) -->
     <script>
-        // Gestão de Estado de Acessibilidade
+        /* ==========================================================================
+           1. GESTÃO DE ESTADO DE ACESSIBILIDADE (FONTE E CONTRASTE)
+           ========================================================================== */
         let tamanhoFonteAtual = 16;
 
         function alterarFonte(delta) {
             let novaFonte = tamanhoFonteAtual + (delta * 2);
+            // Regra e limite de segurança exigidos: if (novaFonte >= 12 && novaFonte <= 24)
             if (novaFonte >= 12 && novaFonte <= 24) {
                 tamanhoFonteAtual = novaFonte;
                 document.documentElement.style.setProperty('--font-size-base', novaFonte + 'px');
@@ -279,19 +813,33 @@
             document.body.classList.toggle('high-contrast');
         }
 
-        // Renderização Dinâmica - Carrossel
+        /* ==========================================================================
+           2. ARRAY DE OBJETOS - CARROSSEL INTERATIVO DINÂMICO
+           ========================================================================== */
         const dadosCarrossel = [
             {
-                titulo: "Equipes de Fábrica 450cc",
-                descricao: "Entenda a engenharia por trás das motocicletas oficiais de fábrica e o suporte milionário fornecido pelos grandes construtores."
+                badge: "Equipe de Fábrica • Honda HRC",
+                titulo: "Equipe HRC Honda Racing 450",
+                descricao: "Liderando o desenvolvimento da CRF450R com injeção eletrônica e mapas ajustáveis no guidão. A equipe conta com investimento massivo e peças oficiais em liga de titânio e fibra de carbono.",
+                piloto: "Jett Lawrence",
+                moto: "Honda CRF450R Factory",
+                imagem: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80"
             },
             {
-                titulo: "Programa de Atletas de Red Bull & Monster",
-                descricao: "Como funcionam os patrocínios de maior prestígio do planeta e o que é necessário para integrar o time de elite."
+                badge: "Equipe de Fábrica • Monster Energy Yamaha",
+                titulo: "Yamaha Star Racing 450/250",
+                descricao: "Uma das maiores estruturas de apoio do paddock americano. Conhecida pela potência avassaladora dos motores YZ-F de cabeçote invertido e suspensão KYB oficial de fábrica.",
+                piloto: "Eli Tomac",
+                moto: "Yamaha YZ450F Factory",
+                imagem: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=80"
             },
             {
-                titulo: "Preparação Física dos Campeões",
-                descricao: "A rotina exaustiva de treinamentos de resistência, controle de batimentos cardíacos e simulação de corrida de alta intensidade."
+                badge: "Equipe de Fábrica • Red Bull KTM",
+                titulo: "KTM Factory Racing",
+                descricao: "Pioneira na introdução do quickshifter e quadros em aço cromo-molibdênio no Supercross. A equipe austríaca mantém um padrão global de excelência e patrocínio master da Red Bull.",
+                piloto: "Chase Sexton",
+                moto: "KTM 450 SX-F Factory Edition",
+                imagem: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80"
             }
         ];
 
@@ -299,48 +847,81 @@
 
         function renderizarCarrossel() {
             const container = document.getElementById('carousel-box');
+            if (!container) return;
+
             const item = dadosCarrossel[indiceCarrossel];
             
             container.innerHTML = `
-                <h3>${item.titulo}</h3>
-                <p style="color: var(--text-secondary); max-width: 600px; margin-top: 15px;">${item.descricao}</p>
-                <div class="carousel-controls">
-                    <button class="acc-btn" onclick="mudarSlide(-1)">&larr; Anterior</button>
-                    <button class="acc-btn" onclick="mudarSlide(1)">Próximo &rarr;</button>
+                <div class="carousel-img-container">
+                    <img src="${item.imagem}" alt="${item.titulo}">
+                </div>
+                <div class="carousel-text-container">
+                    <span class="carousel-badge">${item.badge}</span>
+                    <h3 class="carousel-title">${item.titulo}</h3>
+                    <p class="carousel-desc">${item.descricao}</p>
+                    <div class="carousel-meta">
+                        <div class="carousel-meta-item">
+                            <h4>${item.piloto}</h4>
+                            <p>Piloto Principal</p>
+                        </div>
+                        <div class="carousel-meta-item">
+                            <h4>${item.moto}</h4>
+                            <p>Equipamento</p>
+                        </div>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="acc-btn" onclick="mudarSlide(-1)" aria-label="Slide Anterior">&larr; Anterior</button>
+                        <button class="acc-btn" onclick="mudarSlide(1)" aria-label="Próximo Slide">Próximo &rarr;</button>
+                        <span style="margin-left: auto; color: var(--text-secondary); font-size: 0.85rem; font-weight: 700;">
+                            ${indiceCarrossel + 1} / ${dadosCarrossel.length}
+                        </span>
+                    </div>
                 </div>
             `;
         }
 
         function mudarSlide(direcao) {
             indiceCarrossel += direcao;
-            if (indiceCarrossel < 0) indiceCarrossel = dadosCarrossel.length - 1;
-            if (indiceCarrossel >= dadosCarrossel.length) indiceCarrossel = 0;
+            if (indiceCarrossel < 0) {
+                indiceCarrossel = dadosCarrossel.length - 1;
+            }
+            if (indiceCarrossel >= dadosCarrossel.length) {
+                indiceCarrossel = 0;
+            }
             renderizarCarrossel();
         }
 
-        // Renderização Dinâmica - Acordeão
+        /* ==========================================================================
+           3. ARRAY DE OBJETOS - ACORDEÃO DINÂMICO (FAQ)
+           ========================================================================== */
         const dadosAcordeao = [
             {
-                pergunta: "Como são estruturados os patrocínios no Supercross Profissional?",
-                resposta: "Os pilotos de fábrica possuem contratos diretos com as montadoras e patrocínios primários de marcas de energéticos, equipamentos e peças, alcançando cifras milionárias por temporada."
+                pergunta: "Qual a diferença entre a categoria 250cc e a 450cc?",
+                resposta: "A categoria 250cc (Light) serve como porta de entrada e desenvolvimento para jovens talentos, com motores de 4 tempos mais leves. A 450cc é a classe principal (Premier Class), onde competem os pilotos mais experientes do planeta com motocicletas que superam os 63-70 cavalos de potência."
             },
             {
-                pergunta: "Qual a diferença técnica entre Motocross (MX) e Supercross (SX)?",
-                resposta: "O Motocross é disputado em circuitos abertos e naturais, com grandes variações de relevo. O Supercross acontece em estádios, com pistas artificiais altamente táticas, obstáculo ajustados e ritmo acelerado."
+                pergunta: "Como funcionam os valores de premiação e patrocínios de fábrica?",
+                resposta: "Os pilotos de fábrica possuem salários base que variam de $300 mil a mais de $2 milhões anuais. Além do salário base, os contratos preveem bônus de vitória por corrida (geralmente $50.000 por Main Event) e bônus de campeonato que podem dobrar os ganhos do atleta."
             },
             {
-                pergunta: "Como ter acesso à cobertura completa das corridas?",
-                resposta: "Cadastre-se na nossa plataforma para receber análises exclusivas, acesso a telemetrias de prova e relatórios completos dos treinos classificatórios."
+                pergunta: "O que é o playoff do SuperMotocross World Championship (SMX)?",
+                resposta: "O SMX é a unificação dos campeonatos AMA Supercross e AMA Pro Motocross. No final da temporada outdoor, os 20 melhores pilotos acumuladores de pontos disputam três etapas finais com premiação total histórica superior a 10 milhões de dólares."
+            },
+            {
+                pergunta: "Qual a importância da preparação física no Motocross Pro?",
+                resposta: "O Motocross é classificado por estudos de fisiologia esportiva como um dos esportes mais exigentes do mundo, ao lado da Fórmula 1 e das artes marciais. Os pilotos treinam ciclismo de estrada, remo e musculação funcional diariamente para suportar batimentos elevados sob calor e impactos violentos."
             }
         ];
 
         function renderizarAcordeao() {
             const container = document.getElementById('accordion-box');
+            if (!container) return;
+
             container.innerHTML = dadosAcordeao.map((item, index) => `
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAcordeao(${index})">
+                <div class="accordion-item" id="acc-item-${index}">
+                    <button class="accordion-header" onclick="toggleAcordeao(${index})" aria-expanded="false" aria-controls="acc-content-${index}">
                         <span>${item.pergunta}</span>
-                        <span>+</span>
+                        <div class="accordion-icon">+</div>
                     </button>
                     <div class="accordion-content" id="acc-content-${index}">
                         <p>${item.resposta}</p>
@@ -350,17 +931,27 @@
         }
 
         function toggleAcordeao(index) {
-            const content = document.getElementById(`acc-content-${index}`);
-            const estaAtivo = content.classList.contains('active');
+            const itemClicado = document.getElementById(`acc-item-${index}`);
+            const estaAtivo = itemClicado.classList.contains('active');
             
-            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
-            
+            // Fecha todos os outros itens
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                item.classList.remove('active');
+                const btn = item.querySelector('.accordion-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            });
+
+            // Se o item clicado não estava ativo, abre ele
             if (!estaAtivo) {
-                content.classList.add('active');
+                itemClicado.classList.add('active');
+                const btn = itemClicado.querySelector('.accordion-header');
+                if (btn) btn.setAttribute('aria-expanded', 'true');
             }
         }
 
-        // Inicialização
+        /* ==========================================================================
+           4. INICIALIZAÇÃO SEGURA DO DOM
+           ========================================================================== */
         document.addEventListener('DOMContentLoaded', () => {
             renderizarCarrossel();
             renderizarAcordeao();
